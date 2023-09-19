@@ -1,13 +1,45 @@
-﻿namespace NumbersGame //Simon Nilsson SUT23
+﻿using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+
+namespace NumbersGame //Simon Nilsson SUT23
 {
     internal class Program
-    {
+    {            
         static void Main(string[] args)
+        {            
+            RunGame();
+            PlayAgain();
+                                    
+        }
+        public static void PlayAgain()
+        {
+            bool play = true;
+            while (play)
+            {
+                Console.WriteLine("\nVill du spela igen? Ja/Nej");
+                string input = Console.ReadLine().ToLower();
+                if (input == "ja")
+                {
+                    Console.Clear();
+                    RunGame();
+                }
+                else if (input == "nej")
+                {
+                    Console.WriteLine("Tack för denna gången!");
+                    play = false;
+                }
+                else
+                {
+                    Console.WriteLine("Ogiltigt val. Försök igen!");
+                }
+            }
+
+        }
+        public static void RunGame()
         {
             Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1-20. Kan du gissa vilket? Du får fem försök.");
-
             Random random = new Random();
-            int number = random.Next(1, 20);
+            int number = random.Next(1, 21);
 
             bool myBool = false;
 
@@ -23,21 +55,18 @@
                 }
                 else if (guess > number)
                 {
-                    Console.WriteLine("Tyvärr du gissade för högt, försök igen!");
+                    Console.WriteLine("Tyvärr du gissade för högt");
                 }
                 else if (guess < number)
                 {
-                    Console.WriteLine("Tyvärr du gissade för lågt, försök igen!");
+                    Console.WriteLine("Tyvärr du gissade för lågt!");
                 }
-
             }
-
             if (!myBool)
             {
-                Console.WriteLine("Tyvärr lyckades du inte gissa talet på 5 försök!");
+                Console.WriteLine("\nTyvärr lyckades du inte gissa talet på 5 försök!");
             }
 
-            Console.ReadKey();
         }
     }
 }
