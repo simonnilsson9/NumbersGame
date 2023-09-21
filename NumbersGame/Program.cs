@@ -13,61 +13,75 @@ namespace NumbersGame //Simon Nilsson SUT23
        
         public static void RunGame()
         {
-            Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1-20. Kan du gissa vilket? Du får fem försök.");
-            Random random = new Random();
-            int number = random.Next(1, 21);
-
-            bool myBool = false;
-
-            for (int i = 1; i <= 5; i++)
+            try
             {
-                int guess = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1-20. Kan du gissa vilket? Du får fem försök.");
+                Random random = new Random();
+                int number = random.Next(1, 21);
 
-                if (guess == number)
+                bool myBool = false;
+
+                for (int i = 1; i <= 5; i++)
                 {
-                    Console.WriteLine($"Woho! Du gjorde det! Det tog dig {i} försök att gissa rätt!");
-                    myBool = true;
-                    break;
+                    int guess = Convert.ToInt32(Console.ReadLine());
+
+                    if (guess == number)
+                    {
+                        Console.WriteLine($"Woho! Du gjorde det! Det tog dig {i} försök att gissa rätt!");
+                        myBool = true;
+                        break;
+                    }
+                    else if (guess > number)
+                    {
+                        Console.WriteLine("Tyvärr du gissade för högt!");
+                    }
+                    else if (guess < number)
+                    {
+                        Console.WriteLine("Tyvärr du gissade för lågt!");
+                    }
                 }
-                else if (guess > number)
+                if (!myBool)
                 {
-                    Console.WriteLine("Tyvärr du gissade för högt!");
-                }
-                else if (guess < number)
-                {
-                    Console.WriteLine("Tyvärr du gissade för lågt!");
+                    Console.WriteLine("\nTyvärr lyckades du inte gissa talet på 5 försök!");
                 }
             }
-            if (!myBool)
+            catch (Exception ex)
             {
-                Console.WriteLine("\nTyvärr lyckades du inte gissa talet på 5 försök!");
+                Console.WriteLine(ex.Message);
             }
-
+            
         }
         public static void PlayAgain()
         {
-            bool play = true;
-            while (play)
+            try
             {
-                Console.WriteLine("\nVill du spela igen? Ja/Nej");
-                string input = Console.ReadLine().ToLower();
-                if (input == "ja")
+                bool play = true;
+                while (play)
                 {
-                    Console.Clear();
-                    RunGame();
-                }
-                else if (input == "nej")
-                {
-                    Console.Clear();
-                    Console.WriteLine("Tack för denna gången! Tryck ENTER för att stänga ner programmet.");
-                    play = false;
-                }
-                else
-                {
-                    Console.WriteLine("Ogiltigt val. Försök igen!");
+                    Console.WriteLine("\nVill du spela igen? Ja/Nej");
+                    string input = Console.ReadLine().ToLower();
+                    if (input == "ja")
+                    {
+                        Console.Clear();
+                        RunGame();
+                    }
+                    else if (input == "nej")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Tack för denna gången! Tryck ENTER för att stänga ner programmet.");
+                        play = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ogiltigt val. Försök igen!");
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
     }
 }
